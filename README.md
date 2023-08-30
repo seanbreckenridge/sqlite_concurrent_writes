@@ -28,7 +28,7 @@ Did some benchmarks with different timeout values, different number of requests,
 
 | sqlite timeout | parallel clients   | failures | req/second |
 | -------------- | ------------------ | -------- | ---------- |
-| control, no db | 100                | 0        | 126303     |
+| control, no db | 100                | 0        | 17882      |
 | 5000ms         | 100                | 0        | 169        |
 | 5000ms         | 500                | 0        | 67         |
 | 5000ms         | 1000               | 66       | 58         |
