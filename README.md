@@ -12,7 +12,7 @@ So, wrote this tiny server to see if lots of concurrent requests hitting a serve
 
 ```bash
 pip install -r requirements.txt
-# Run, in different terminals:
+# Run, in different terminals (or in the background with &)
 ./preventsize &  # just to make sure im not making a giant database, and some debug info
 ./runserver &
 ./hammer-server
