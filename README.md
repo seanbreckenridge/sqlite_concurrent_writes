@@ -1,6 +1,6 @@
 A test to see how concurrent write locking worked with webservers/sqlite3
 
-Based on some of the downsides described in this video:
+Based on some of the downsides described in this anthonywritescode video:
 
 <https://www.youtube.com/watch?v=jH39c5-y6kg>
 
