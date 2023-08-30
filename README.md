@@ -37,7 +37,7 @@ Did some benchmarks with different timeout values, different number of requests,
 | 0ms            | 100                | 471      | 217        |
 | 0ms            | 1000               | 229      | 121        |
 
-(To do this I just did a `rm test.db && TIMEOUT=1 ./runserver` in one terminal, and `CLIENTS=1000 ./hammer-server 256` in another)
+(To do this I just did a `rm test.db && TIMEOUT=1 ./runserver` in one terminal, and `CLIENTS=1000 ./hammer-server` in another)
 
 When there are 1000 concurrent clients, there is significant slowdown, even after `hammer-server` stops, its still processing requests for 5-10 seconds.
 
