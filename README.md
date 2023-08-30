@@ -26,16 +26,15 @@ Surprisingly, there were no failures, because of the default timeout in the sqli
 
 Did some benchmarks with different timeout values, different number of requests, and generally there are no failures till you reduce the timeout to 0 or if you're getting thousands of writes per second:
 
-| sqlite timeout | concurrent clients     | failures      | req/second
-|----------------|------------------------|---------------|-------------------------------|
-| control, no db | 100                    | 0             | 126303                        |
-| 5000ms         | 100                    | 0             | 169                           |
-| 5000ms         | 1000                   | 66            | 58                            |
-| 1000ms         | 100                    | 0             | 168                           |
-| 1000ms         | 1000                   | 101           | 48                            |
-| 0ms            | 100                    | 471           | 217                           |
-| 0ms            | 1000                   | 229           | 121                           |
-
+| sqlite timeout | concurrent clients | failures | req/second |
+| -------------- | ------------------ | -------- | ---------- |
+| control, no db | 100                | 0        | 126303     |
+| 5000ms         | 100                | 0        | 169        |
+| 5000ms         | 1000               | 66       | 58         |
+| 1000ms         | 100                | 0        | 168        |
+| 1000ms         | 1000               | 101      | 48         |
+| 0ms            | 100                | 471      | 217        |
+| 0ms            | 1000               | 229      | 121        |
 
 (To do this I just did a `rm test.db && TIMEOUT=1 ./runserver` in one terminal, and `CLIENTS=1000 ./hammer-server 256` in another)
 
