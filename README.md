@@ -18,7 +18,7 @@ pip install -r requirements.txt
 ./hammer-server
 ```
 
-Surprisingly, there were no failures, because of the default timeout in the sqlite module:
+Surprisingly, there were no failures with default values. After looking at the `sqlite3.connect` docs, I found there was a default timeout in the sqlite module:
 
 <https://docs.python.org/3/library/sqlite3.html#module-functions>
 
@@ -30,6 +30,7 @@ Did some benchmarks with different timeout values, different number of requests,
 | -------------- | ------------------ | -------- | ---------- |
 | control, no db | 100                | 0        | 126303     |
 | 5000ms         | 100                | 0        | 169        |
+| 5000ms         | 500                | 0        | 67         |
 | 5000ms         | 1000               | 66       | 58         |
 | 1000ms         | 100                | 0        | 168        |
 | 1000ms         | 1000               | 101      | 48         |
