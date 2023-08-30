@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+db='./test.db'
+
+remove() {
+	# so, this sometimes fails, because were just using sqlite3 directly without
+	# any sort of checking for locks
+	#
+	# but, since we've added the .timeout 500, it waits
+	sqlite3 $db <<EOF
+.timeout 5000;
+SELECT COUNT(*) FROM test;
+EOF
+	size="$(du "$db" | cut -f1)"
+	echo "$size"
+	# if this is over 10 gigs, remove it
+	if [ -f $db ] && [ "$size" -gt 10000 ]; then
+		rm $db
+	fi
+}
+
+# loop once a second
+while true; do
+	# if the file exists, remove it
+	remove
+
+	# sleep for a second
+	sleep 0.1
+done

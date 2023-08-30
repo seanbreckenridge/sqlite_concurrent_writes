@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+TIMEOUT="${TIMEOUT:-5}" python3 -m app
