@@ -27,12 +27,13 @@ Surprisingly, there were no failures, because of the default timeout in the sqli
 Did some benchmarks with different timeout values, different number of requests, and generally there are no failures till you reduce the timeout to 0 or if you're getting thousands of writes per second:
 
 | sqlite timeout | parallel curl requests | est. failures | db row count after 10 seconds |
-| 5000ms | 64 | 0 | 1558 |
-| 5000ms | 256 | 0 | 1589 |
-| 1000ms | 64 | 0 | 1517 |
-| 1000ms | 256 | 0 | 1682 |
-| 0ms | 64 | 68 | 1614 |
-| 0ms | 256 | 221 | 1601 |
+|----------------|------------------------|---------------|-------------------------------|
+| 5000ms         | 64                     | 0             | 1558                          |
+| 5000ms         | 256                    | 0             | 1589                          |
+| 1000ms         | 64                     | 0             | 1517                          |
+| 1000ms         | 256                    | 0             | 1682                          |
+| 0ms            | 64                     | 68            | 1614                          |
+| 0ms            | 256                    | 221           | 1601                          |
 
 So, it'll just be **much slower** when its getting hit with a bunch of requests since its waiting for the lock to clear, but it won't crash or (typically) fail to write, unless you have so many requests that the 5 second timeout is not enough
 
