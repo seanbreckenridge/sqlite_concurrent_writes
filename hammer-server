@@ -1,3 +1,7 @@
 #!/usr/bin/env bash
-# send 64 requests in parallel
-yes 127.0.0.1:8000 | parallel -v -j "${1:-64}" curl -s {}
+url="$1"
+if [[ -z "$url" ]]; then
+	url="http://127.0.0.1:8000"
+fi
+# https://github.com/codesenberg/bombardier
+bombardier -c "${CLIENTS:-100}" -d 10s "$url"

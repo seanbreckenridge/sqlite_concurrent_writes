@@ -26,18 +26,22 @@ Surprisingly, there were no failures, because of the default timeout in the sqli
 
 Did some benchmarks with different timeout values, different number of requests, and generally there are no failures till you reduce the timeout to 0 or if you're getting thousands of writes per second:
 
-| sqlite timeout | parallel curl requests | failures      | db row count after 10 seconds |
+| sqlite timeout | concurrent clients     | failures      | req/second
 |----------------|------------------------|---------------|-------------------------------|
-| 5000ms         | 64                     | 0             | 1558                          |
-| 5000ms         | 256                    | 0             | 1589                          |
-| 1000ms         | 64                     | 0             | 1517                          |
-| 1000ms         | 256                    | 0             | 1682                          |
-| 0ms            | 64                     | 68            | 1614                          |
-| 0ms            | 256                    | 221           | 1601                          |
+| control, no db | 100                    | 0             | 126303                        |
+| 5000ms         | 100                    | 0             | 169                           |
+| 5000ms         | 1000                   | 66            | 58                            |
+| 1000ms         | 100                    | 0             | 168                           |
+| 1000ms         | 1000                   | 101           | 48                            |
+| 0ms            | 100                    | 471           | 217                           |
+| 0ms            | 1000                   | 229           | 121                           |
 
-(To do this I just did a `rm test.db && TIMEOUT=1 ./runserver` in one terminal, and `timeout 10 ./hammer-server 256` in another)
 
-So, it'll just be **much slower** when its getting hit with a bunch of requests since its waiting for the lock to clear, but it won't crash or (typically) fail to write, unless you have so many requests that the 5 second timeout is not enough
+(To do this I just did a `rm test.db && TIMEOUT=1 ./runserver` in one terminal, and `CLIENTS=1000 ./hammer-server 256` in another)
+
+When there are 1000 concurrent clients, there is significant slowdown, even after `hammer-server` stops, its still processing requests for 5-10 seconds.
+
+So, it'll just be slower when its getting hit with a bunch of requests since its waiting for the lock to clear, but it won't crash or (typically) fail to write, unless you have so many requests that the 5 second timeout is not enough.
 
 Similarly `ecto_sqlite3` has a busy timeout of 2 seconds: <https://hexdocs.pm/ecto_sqlite3/Ecto.Adapters.SQLite3.html#module-provided-options>
 

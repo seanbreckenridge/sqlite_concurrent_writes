@@ -26,6 +26,10 @@ class Failures:
 
 failures = Failures()
 
+@app.route("/control")
+async def control(request):
+    return HTTPResponse()
+
 
 @app.route("/")
 async def basic(request):
