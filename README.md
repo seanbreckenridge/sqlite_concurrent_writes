@@ -24,7 +24,7 @@ Surprisingly, there were no failures, because of the default timeout in the sqli
 
 `timeout (float) – How many seconds the connection should wait before raising an OperationalError when a table is locked. If another connection opens a transaction to modify a table, that table will be locked until the transaction is committed. Default five seconds.`
 
-Did some benchmarks with different timeout values, different number of requests, and generally there are no failures till you reduce the timeout to 0 or if you're getting thousands of writes per second:
+Did some benchmarks with different timeout values, different number of requests, and generally there are no failures till you reduce the timeout to 0 or if you're getting thousands of writes per second. Each of these ran for 10 seconds.
 
 | sqlite timeout | concurrent clients | failures | req/second |
 | -------------- | ------------------ | -------- | ---------- |
