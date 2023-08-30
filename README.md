@@ -6,7 +6,7 @@ Based on some of the downsides described in this anthonywritescode video:
 
 He shows an example of sqlite not being able to handle concurrent writes, which makes sense since he was just spawning a bunch of bash to hit it with the `sqlite3` command on command line
 
-I wondered if the same issue happens with pythons sqlite module, or with Session's in sqlalchemy (I tried looking into it but theres so many damn layers of indirection). Same with sqlite_echo in elixir, does the database pooling do anything here for writes? I know it can handle multiple reads at the same time, but what if two requests tried to write at the same time, does it just error one of them?
+I wondered if the same issue happens with [pythons sqlite](https://docs.python.org/3/library/sqlite3.html) module, or with Session's in [sqlalchemy](https://www.sqlalchemy.org/) (I tried looking into it but theres so many damn layers of indirection). Same with [ectos sqlite adapter](https://hexdocs.pm/ecto_sqlite3/Ecto.Adapters.SQLite3.html) in elixir, does the database pooling do anything here for writes? I know it can handle multiple reads at the same time, but what if two requests tried to write at the same time, does it just error one of them?
 
 So, wrote this tiny server to see if lots of concurrent requests hitting a server writing to the same table would cause crashes
 
