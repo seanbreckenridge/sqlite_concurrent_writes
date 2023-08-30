@@ -26,7 +26,7 @@ Surprisingly, there were no failures with default values. After looking at the `
 
 Did some benchmarks with different timeout values, different number of requests, and generally there are no failures till you reduce the timeout to 0 or if you're getting thousands of writes per second. Each of these ran for 10 seconds.
 
-| sqlite timeout | concurrent clients | failures | req/second |
+| sqlite timeout | parallel clients   | failures | req/second |
 | -------------- | ------------------ | -------- | ---------- |
 | control, no db | 100                | 0        | 126303     |
 | 5000ms         | 100                | 0        | 169        |
