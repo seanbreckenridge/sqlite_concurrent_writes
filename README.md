@@ -35,6 +35,8 @@ Did some benchmarks with different timeout values, different number of requests,
 | 0ms            | 64                     | 68            | 1614                          |
 | 0ms            | 256                    | 221           | 1601                          |
 
+(To do this I just did a `rm test.db && TIMEOUT=1 ./runserver` in one terminal, and `timeout 10 ./hammer-server 256` in another)
+
 So, it'll just be **much slower** when its getting hit with a bunch of requests since its waiting for the lock to clear, but it won't crash or (typically) fail to write, unless you have so many requests that the 5 second timeout is not enough
 
 Similarly `ecto_sqlite3` has a busy timeout of 2 seconds: <https://hexdocs.pm/ecto_sqlite3/Ecto.Adapters.SQLite3.html#module-provided-options>
