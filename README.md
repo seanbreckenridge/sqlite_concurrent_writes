@@ -47,11 +47,13 @@ Similarly `ecto_sqlite3` has a busy timeout of 2 seconds: <https://hexdocs.pm/ec
 
 So, with this info in mind, (as I dont expect any of my personal project databases to get hammered with hundreds of writes per second), I will continue using sqlite till I need to migrate to something larger
 
-Similarly if you want to read the size from the db, if you just run `sqlite3 'select COUNT(*) FROM test;'` it might fail since the db is locked, but you can use:
+If youre not using bindings that support a timeout, you can set it directly in the sqlite code with the `.timeout` option:
+
+```
+.timeout MS              Try opening locked tables for MS milliseconds
+```
 
 ```
 .timeout 1000;
 select COUNT(*) FROM test;
 ```
-
-to set the timeout to 1000ms, and it'll wait for the lock to clear and then return
