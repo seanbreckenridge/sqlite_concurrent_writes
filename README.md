@@ -1,8 +1,8 @@
 A test to see how concurrent write locking worked with webservers/sqlite3
 
-Based on some of the downsides described in this anthonywritescode video:
+Based on some of the downsides described in this anthonywritescode video (timestamped):
 
-<https://www.youtube.com/watch?v=jH39c5-y6kg>
+<https://youtu.be/jH39c5-y6kg?t=355>
 
 He shows an example of sqlite not being able to handle concurrent writes, by spawning a of bash commands in the background to hit it with the `sqlite3` command on command line
 
