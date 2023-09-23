@@ -6,7 +6,7 @@ Based on some of the downsides described in this anthonywritescode video (timest
 
 He shows an example of sqlite not being able to handle concurrent writes, by spawning a of bash commands in the background to hit it with the `sqlite3` command on command line
 
-I wondered if the same issue happens with [pythons sqlite](https://docs.python.org/3/library/sqlite3.html) module, or with Session's in [sqlalchemy](https://www.sqlalchemy.org/) (I tried looking into it but theres so many damn layers of indirection). Same with [ectos sqlite adapter](https://hexdocs.pm/ecto_sqlite3/Ecto.Adapters.SQLite3.html) in elixir, does the database pooling do anything here for writes? I know it can handle multiple reads at the same time, but what if two requests tried to write at the same time, does it just error one of them?
+I wondered if the same issue happens with [pythons sqlite](https://docs.python.org/3/library/sqlite3.html) module, or with Session's in [sqlalchemy](https://www.sqlalchemy.org/) (I tried looking into it but there's so many damn layers of indirection). Same with [ectos sqlite adapter](https://hexdocs.pm/ecto_sqlite3/Ecto.Adapters.SQLite3.html) in elixir, does the database pooling do anything here for writes? I know it can handle multiple reads at the same time, but what if two requests tried to write at the same time, does it just error one of them?
 
 So, wrote this tiny server to see if lots of concurrent requests hitting a server writing to the same table would cause crashes
 
@@ -47,7 +47,7 @@ Similarly `ecto_sqlite3` has a busy timeout of 2 seconds: <https://hexdocs.pm/ec
 
 So, with this info in mind, (as I dont expect any of my personal project databases to get hammered with hundreds of writes per second), I will continue using sqlite till I need to migrate to something larger
 
-If youre not using bindings that support a timeout, you can set it directly in the sqlite code with the `.timeout` option:
+If you're not using bindings that support a timeout, you can set it directly in the sqlite code with the `.timeout` option:
 
 ```
 .timeout MS              Try opening locked tables for MS milliseconds
