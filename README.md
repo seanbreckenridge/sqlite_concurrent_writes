@@ -1,10 +1,21 @@
 A test to see how concurrent write locking worked with webservers/sqlite3
 
-Based on some of the downsides described in this anthonywritescode video (timestamped):
+As an aside, when [WAL mode is enabled](https://www.sqlite.org/wal.html) concurrect reads with sqlite are pretty great:
 
-<https://youtu.be/jH39c5-y6kg?t=355>
+> WAL provides more concurrency as readers do not block writers and a writer does not block readers. Reading and writing can proceed concurrently.
 
-He shows an example of sqlite not being able to handle concurrent writes, by spawning a of bash commands in the background to hit it with the `sqlite3` command on command line
+Some [decent YC comments here](https://news.ycombinator.com/item?id=32579866) about possible pitfalls/benefits of WAL mode.
+
+Anyways, back to the point:
+
+Based on some of the downsides described in [this anthonywritescode video](https://youtu.be/jH39c5-y6kg?t=355)
+
+He shows an example of sqlite not being able to handle concurrent writes, by spawning a of bash commands in the background to hit it with the `sqlite3` command on command line, like:
+
+```bash
+# -P 5 spawns 5 processes at a time
+seq 10 | xargs -P 5 --replace sqlite3 db.db 'insert into table values ({});'
+```
 
 I wondered if the same issue happens with [pythons sqlite](https://docs.python.org/3/library/sqlite3.html) module, or with Session's in [sqlalchemy](https://www.sqlalchemy.org/) (I tried looking into it but there's so many damn layers of indirection). Same with [ectos sqlite adapter](https://hexdocs.pm/ecto_sqlite3/Ecto.Adapters.SQLite3.html) in elixir, does the database pooling do anything here for writes? I know it can handle multiple reads at the same time, but what if two requests tried to write at the same time, does it just error one of them?
 
